@@ -29,31 +29,23 @@ def lambda_handler(event, context):
                     logs_client.put_retention_policy(
                         logGroupName=log_group_name, retentionInDays=LOG_RETENTION_DAYS
                     )
+
                     updated.append(log_group_name)
                     logger.info(
-                        "Updated retention policy",
-                        extra={
-                            "log_group": log_group_name,
-                            "retention_days": LOG_RETENTION_DAYS,
-                        },
+                        f"Retention updated to {LOG_RETENTION_DAYS} days for log group: {log_group_name}"
                     )
 
                 except ClientError as e:
-                    failed.append({"log_group": log_group_name, "error": str(e)})
+                    failed.append(log_group_name)
                     logger.error(
-                        "Failed to update retention policy",
-                        extra={"log_group": log_group_name, "error": str(e)},
+                        f"FAILED to update retention for log group: {log_group_name} | Error: {e}"
                     )
             else:
                 skipped.append(log_group_name)
 
     logger.info(
-        "Retention enforcement complete",
-        extra={
-            "updated_count": len(updated),
-            "skipped_count": len(skipped),
-            "failed_count": len(failed),
-        },
+        f"Retention enforcement complete | "
+        f"updated={len(updated)}, skipped={len(skipped)}, failed={len(failed)}"
     )
 
     return {
@@ -61,5 +53,5 @@ def lambda_handler(event, context):
         "retention_days": LOG_RETENTION_DAYS,
         "updated_log_groups": updated,
         "skipped_log_groups_count": len(skipped),
-        "failed": failed,
+        "failed_log_groups": failed,
     }
