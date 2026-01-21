@@ -1,3 +1,6 @@
+The Terraform module is used by the ITGix AWS Landing Zone - https://itgix.com/itgix-landing-zone/
+
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
@@ -36,7 +39,6 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_alert_email"></a> [alert\_email](#input\_alert\_email) | Email address to receive Lambda failure alerts | `string` | `"aws-landing-zones@itgix.com"` | no |
-| <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | n/a | `string` | n/a | yes |
 
 ## Outputs
 
