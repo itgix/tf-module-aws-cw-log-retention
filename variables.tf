@@ -3,3 +3,9 @@ variable "alert_email" {
   type        = string
   default     = "aws-landing-zones@itgix.com"
 }
+
+variable "python_runtime_version" {
+  description = "Python Runtime Version for the Lambda"
+  type        = string
+  default     = "python3.14"
+}
