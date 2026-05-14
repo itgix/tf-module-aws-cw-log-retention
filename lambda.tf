@@ -10,7 +10,7 @@ resource "aws_lambda_function" "log_retention_enforcer" {
   handler          = "retention_enforcer.lambda_handler"
   runtime          = var.python_runtime_version
   filename         = data.archive_file.lambda_zip.output_path
-  source_code_hash = data.archive_file.lambda_zip.output_base64sha256
+  code_sha256      = data.archive_file.lambda_zip.output_base64sha256
 
   timeout     = 300
   memory_size = 128
