@@ -1,7 +1,6 @@
 data "archive_file" "lambda_zip" {
   type        = "zip"
   source_dir  = "${path.module}/lambda"
-  #source_file = "${path.module}/lambda/retention_enforcer.py"
   output_path = "${path.module}/lambda.zip"
 }
 
@@ -11,7 +10,6 @@ resource "aws_lambda_function" "log_retention_enforcer" {
   handler          = "retention_enforcer.lambda_handler"
   runtime          = var.python_runtime_version
   filename         = data.archive_file.lambda_zip.output_path
-  #source_code_hash = data.archive_file.lambda_zip.output_base64sha256
   code_sha256      = data.archive_file.lambda_zip.output_base64sha256
 
   timeout     = 300
